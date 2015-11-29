@@ -1,0 +1,97 @@
+﻿<Window x:Class="VideoStoreApplication.MovieManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Elokuvien hallinta" Height="400" Width="500" Background="Gray"
+        Closing="Window_Closing">
+
+    <Border>
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.504, 1.5" StartPoint="0.504, 0.03">
+                <GradientStop Color="#363332" Offset="0"/>
+                <GradientStop Color="Gray" Offset="0.567"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Elokuvien hallinta" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   FontSize="20"/>
+            
+            <!-- Display fields -->
+            <StackPanel Grid.Row="1">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Nimi: " Foreground="White"/>
+                    <TextBlock Foreground="White" Text="{Binding Path=Selected.Name, Mode=OneWay}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Kuvaus: " Foreground="White"/>
+                    <TextBlock Foreground="White" Text="{Binding Path=Selected.Description, Mode=OneWay}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Julkaisupäivä: " Foreground="White"/>
+                    <TextBlock Foreground="White" Text="{Binding Path=Selected.ReleaseDate, Mode=OneWay}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Vuokra/päivä: " Foreground="White"/>
+                    <TextBlock Foreground="White" Text="{Binding Path=RentPricePerDayDisplayString, Mode=OneWay}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Vuokrattu: " Foreground="White"/>
+                    <TextBlock Foreground="White" Text="{Binding Path=SelectedAvailableDisplayString, Mode=OneWay}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Formaatti: " Foreground="White"/>
+                    <TextBlock Foreground="White" Text="{Binding Path=SelectedFormatDisplayString, Mode=OneWay}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Path=Movies}"
+                                                   SelectedValue="{Binding Path=Selected}"
+                                                   SelectionMode="Single"
+                                                   Name="moviesListView"
+                                                   SelectionChanged="moviesListView_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Nimi" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Formaatti" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Format}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button Grid.Row="2" Margin="40, 10, 40, 10" Content="Poista valittu elokuva" Name="removeSelectedMovieButton"
+                    Click="removeSelectedMovieButton_Click"
+                    IsEnabled="False"/>
+            <Button Grid.Row="2" Grid.Column="2" Margin="40, 10, 40, 10" Content="Lisää elokuva" Name="addMovieButton" Click="addMovieButton_Click"/>
+        </Grid>
+    </Border>
+</Window>
