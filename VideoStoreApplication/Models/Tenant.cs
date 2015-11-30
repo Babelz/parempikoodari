@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace VideoStoreApplication.Models
         /// </summary>
         [XmlArray("Rented movies")]
         [XmlArrayItem("Rented movie", typeof(Movie))]
-        public List<Movie> RentedMovies
+        public ObservableCollection<Movie> RentedMovies
         {
             get;
             set;
@@ -45,7 +46,7 @@ namespace VideoStoreApplication.Models
 
         public Tenant()
         {
-            RentedMovies = new List<Movie>();
+            RentedMovies = new ObservableCollection<Movie>();
         }
     }
 }
