@@ -19,3 +19,5 @@ C:\Users\Niko\documents\visual studio 2013\Projects\VideoStoreApplication\VideoS
 C:\Users\Niko\documents\visual studio 2013\Projects\VideoStoreApplication\VideoStoreApplication\obj\Debug\DialogWindow.g.cs
 C:\Users\Niko\documents\visual studio 2013\Projects\VideoStoreApplication\VideoStoreApplication\obj\Debug\RentManagerWindow.baml
 C:\Users\Niko\documents\visual studio 2013\Projects\VideoStoreApplication\VideoStoreApplication\obj\Debug\RentManagerWindow.g.cs
+C:\Users\Niko\documents\visual studio 2013\Projects\VideoStoreApplication\VideoStoreApplication\obj\Debug\SelectMovieDialog.baml
+C:\Users\Niko\documents\visual studio 2013\Projects\VideoStoreApplication\VideoStoreApplication\obj\Debug\SelectMovieDialog.g.cs

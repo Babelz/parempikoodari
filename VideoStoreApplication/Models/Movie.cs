@@ -75,6 +75,7 @@ namespace VideoStoreApplication.Models
 
         public Movie()
         {
+            Available = true;
         }
     }
 }

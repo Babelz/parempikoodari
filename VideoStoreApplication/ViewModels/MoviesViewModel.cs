@@ -105,6 +105,10 @@ namespace VideoStoreApplication.ViewModels
         {
             movies = new ObservableCollection<Movie>(movieDatabase.Movies);
         }
+        public MoviesViewModel()
+        {
+            movies = new ObservableCollection<Movie>();
+        }
 
 
         /// <summary>

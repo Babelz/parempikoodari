@@ -61,8 +61,12 @@
     <Compile Include="RentManagerWindow.xaml.cs">
       <DependentUpon>RentManagerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SelectMovieDialog.xaml.cs">
+      <DependentUpon>SelectMovieDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StringConsts.cs" />
     <Compile Include="ViewModels\MoviesViewModel.cs" />
+    <Compile Include="ViewModels\TenantsViewModel.cs" />
     <Page Include="DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RentManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectMovieDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

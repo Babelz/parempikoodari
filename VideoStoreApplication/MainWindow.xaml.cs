@@ -30,11 +30,22 @@ namespace VideoStoreApplication
         #region Event handlers
         private void manageRentsButton_Click(object sender, RoutedEventArgs e)
         {
+            // RAII.
+            DatabaseManager<TenantDatabase> databaseManager = new DatabaseManager<TenantDatabase>(StringConsts.TenantDatabaseLocation);
 
+            TenantDatabase tenantDatabase = databaseManager.Locate();
+
+            RentManagerWindow rentManagerWindow = new RentManagerWindow(tenantDatabase)
+            {
+                Topmost = true
+            };
+
+            rentManagerWindow.ShowDialog();
         }
 
         private void manageMoviesButton_Click(object sender, RoutedEventArgs e)
         {
+            // RAII.
             DatabaseManager<MovieDatabase> databaseManager = new DatabaseManager<MovieDatabase>(StringConsts.MovieDatabaseLocation);
 
             MovieDatabase movieDatabase = databaseManager.Locate();

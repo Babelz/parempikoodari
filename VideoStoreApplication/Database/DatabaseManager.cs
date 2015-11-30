@@ -14,7 +14,7 @@ namespace VideoStoreApplication.Database
     /// Class responsible of locating and syncing the databases.
     /// </summary>
     /// <typeparam name="T">runtime type of the database, type must have SerializableAttribute</typeparam>
-    public sealed class DatabaseManager<T>
+    public sealed class DatabaseManager<T> where T : class
     {
         #region Fields
         private readonly string databaseLocation;
@@ -62,15 +62,15 @@ namespace VideoStoreApplication.Database
         /// Loads the database from the database file.
         /// </summary>
         /// <returns>the database</returns>
-        private MovieDatabase LoadFromFile()
+        private T LoadFromFile()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
 
-            MovieDatabase database = null;
+            T database = null;
 
             using (StreamReader reader = new StreamReader(databaseLocation))
             {
-                database = serializer.Deserialize(reader) as MovieDatabase;
+                database = serializer.Deserialize(reader) as T;
             }
 
             return database;
@@ -80,7 +80,7 @@ namespace VideoStoreApplication.Database
         /// Locates the database for the user.
         /// </summary>
         /// <returns>the located database</returns>
-        public MovieDatabase Locate()
+        public T Locate()
         {
             if (!DatabaseExists())
             {
@@ -94,7 +94,7 @@ namespace VideoStoreApplication.Database
         /// Saves the given database to the disk.
         /// </summary>
         /// <param name="database"></param>
-        public void Save(MovieDatabase database)
+        public void Save(T database)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
 

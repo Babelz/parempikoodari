@@ -1,16 +1,96 @@
 ﻿<Window x:Class="VideoStoreApplication.RentManagerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="RentManagerWindow" Height="300" Width="300">
-        <Border>
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.504, 1.5" StartPoint="0.504, 0.03">
-                    <GradientStop Color="#363332" Offset="0"/>
-                    <GradientStop Color="Gray" Offset="0.567"/>
-                </LinearGradientBrush>
-            </Border.Background>
+        Title="Vuokrausten hallinta" Height="300" Width="500"
+        Closing="Window_Closing">
 
-            <Grid Margin="10">
-            </Grid>
+        <Border>
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.504, 1.5" StartPoint="0.504, 0.03">
+                <GradientStop Color="#363332" Offset="0"/>
+                <GradientStop Color="Gray" Offset="0.567"/>
+            </LinearGradientBrush>
+        </Border.Background>
+            
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Content="Vuokrausten hallinta" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   FontSize="20"/>
+
+            <Button Margin="10" Grid.Row="2" Content="Lisää käyttäjä" Name="addUserButton" Click="addUserButton_Click"/>
+            <Button IsEnabled="False" Margin="10" Grid.Row="2" Grid.Column="1" Content="Poista käyttäjä" Name="removeUserButton" Click="removeUserButton_Click"/>
+
+            <Button IsEnabled="False" Grid.Row="2" Grid.Column="2" Content="Palauta elokuva" Name="removeRentedMovieButton" Click="removeRentedMovieButton_Click" HorizontalAlignment="Left" Margin="0, 10, 0, 10"/>
+            <Button IsEnabled="False" Grid.Row="2" Grid.Column="2" Content="Vuokraa elokuva" Name="addMovieButton" Click="addMovieButton_Click" HorizontalAlignment="Right" Margin="0, 10, 0, 10"/>
+            
+            <ListView Grid.Row="1" Grid.Column="2" Margin="5"
+                      ItemsSource="{Binding Path=Selected.RentedMovies}"
+                      SelectedValue="{Binding Path=SelectedMovie}"
+                      Name="rentedMoviesListView"
+                      SelectionChanged="rentedMoviesListView_SelectionChanged"
+                      SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Nimi" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Formaatti" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Format}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5"
+                      ItemsSource="{Binding Path=Tenants}"
+                      SelectedValue="{Binding Path=Selected}"
+                      Name="usersListView"
+                      SelectionChanged="usersListView_SelectionChanged"
+                      SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Nimi" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Yhteystiedot" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ContactInformation}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
         </Border>
 </Window>

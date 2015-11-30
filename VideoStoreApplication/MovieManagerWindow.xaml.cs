@@ -50,6 +50,7 @@ namespace VideoStoreApplication
 
             return dialog.ResponseText;
         }
+
         private void DisplayError(string message)
         {
             MessageBox.Show(message + ".\nElokuvaa ei lisätty tietokantaan.", "Virhe!", MessageBoxButton.OK);
@@ -72,6 +73,7 @@ namespace VideoStoreApplication
             return Enum.GetNames(typeof(MovieFormat)).FirstOrDefault(s => s.ToLower() == movieFormat.ToLower())
                                                       != string.Empty;
         }
+
         private MovieFormat ParseFormat(string format)
         {
             string formatInLower = format.ToLower();
