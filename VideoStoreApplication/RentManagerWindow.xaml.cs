@@ -85,12 +85,13 @@ namespace VideoStoreApplication
 
             if (result == MessageBoxResult.Yes)
             {
-                tenantsViewModel.RemoveMovie(tenantsViewModel.SelectedMovie);
-
-                tenantsViewModel.SelectedMovie.Available = true;
-                tenantsViewModel.SelectedMovie.RentDate = string.Empty;
+                // Sync to database.
+                Movie databaseEntry = movieDatabase.Movies.FirstOrDefault(m => m == tenantsViewModel.SelectedMovie);
+                databaseEntry.Available = true;
+                databaseEntry.RentDate = string.Empty;
                 
-                tenantsViewModel.SelectedMovie = null;
+                // Update view model.
+                tenantsViewModel.RemoveMovie(tenantsViewModel.SelectedMovie);
                 
                 removeRentedMovieButton.IsEnabled = false;
             }

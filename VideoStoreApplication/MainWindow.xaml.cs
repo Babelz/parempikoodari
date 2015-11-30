@@ -35,7 +35,7 @@ namespace VideoStoreApplication
 
             TenantDatabase tenantDatabase = databaseManager.Locate();
 
-            RentManagerWindow rentManagerWindow = new RentManagerWindow(tenantDatabase)
+            RentManagerWindow rentManagerWindow = new RentManagerWindow(tenantDatabase) 
             {
                 Topmost = true
             };

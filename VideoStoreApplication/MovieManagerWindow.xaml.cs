@@ -25,13 +25,24 @@ namespace VideoStoreApplication
     {
         #region Fields
         private readonly MoviesViewModel moviesViewModel;
+
+        private readonly MovieDatabase movieDatabase;
         #endregion
 
         public MovieManagerWindow(MovieDatabase movieDatabase)
         {
+            this.movieDatabase = movieDatabase;
+
             // Initialize model.
-            moviesViewModel = new MoviesViewModel(movieDatabase);
-            
+            List<Movie> avaivableMovies = movieDatabase.Movies.Where(m => m.Available).ToList();
+
+            moviesViewModel = new MoviesViewModel();
+
+            foreach (Movie movie in avaivableMovies)
+            {
+                moviesViewModel.Movies.Add(movie);
+            }
+
             DataContext = moviesViewModel;
 
             InitializeComponent();
@@ -56,20 +67,37 @@ namespace VideoStoreApplication
             MessageBox.Show(message + ".\nElokuvaa ei lisätty tietokantaan.", "Virhe!", MessageBoxButton.OK);
         }
 
+        private bool ValidateNotEmpty(string input)
+        {
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
+            {
+                MessageBox.Show("input ei voi olla tyhjä!", "HOX!", MessageBoxButton.OK);
+
+                return false;
+            }
+
+            return true;
+        }
         private bool IsValidReleaseDate(string dateTime)
         {
+            if (!ValidateNotEmpty(dateTime)) return false;
+
             DateTime parsed = DateTime.Now;
 
             return DateTime.TryParse(dateTime, out parsed);
         }
         private bool IsValidRentPrice(string rentPricePerDay)
         {
+            if (!ValidateNotEmpty(rentPricePerDay)) return false;
+
             float parsed = 0.0f;
 
             return float.TryParse(rentPricePerDay, out parsed);
         }
         private bool IsValidMovieFormat(string movieFormat)
         {
+            if (!ValidateNotEmpty(movieFormat)) return false;
+
             return Enum.GetNames(typeof(MovieFormat)).FirstOrDefault(s => s.ToLower() == movieFormat.ToLower())
                                                       != string.Empty;
         }
@@ -103,6 +131,13 @@ namespace VideoStoreApplication
 
         private void removeSelectedMovieButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!moviesViewModel.Selected.Available)
+            {
+                MessageBox.Show("Elokuva tulee palauttaa ennen poistoa!", "HOX!", MessageBoxButton.OK);
+
+                return;
+            }
+
             // As the user for validation before removing the movie.
             MessageBoxResult result = MessageBox.Show("haluatko varmasti poistaa valitun elokuvan?", "HOX!", MessageBoxButton.YesNo);
 
@@ -119,11 +154,14 @@ namespace VideoStoreApplication
             // Name and desc do not require any special checking.
 
             string name = AskUserForInformation("Nimi :");
+            if (!ValidateNotEmpty(name)) return;
 
             string description = AskUserForInformation("Kuvaus :");
-            
+            if (!ValidateNotEmpty(name)) return;
+
             // Get date from the user and validate it.
             string releaseDate = AskUserForInformation("Julkaisupäivä :");
+            if (!ValidateNotEmpty(name)) return;
 
             if (!IsValidReleaseDate(releaseDate))
             {
@@ -160,6 +198,7 @@ namespace VideoStoreApplication
             };
 
             moviesViewModel.Movies.Add(newMovie);
+            movieDatabase.Movies.Add(newMovie);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -167,9 +206,6 @@ namespace VideoStoreApplication
             // Sync "database" before we close the window.
             // Just rewrite the whole file, skip checks.
             DatabaseManager<MovieDatabase> databaseManager = new DatabaseManager<MovieDatabase>(StringConsts.MovieDatabaseLocation);
-
-            MovieDatabase movieDatabase = new MovieDatabase();
-            movieDatabase.Movies = moviesViewModel.Movies.ToList();
 
             databaseManager.Save(movieDatabase);
         }

@@ -77,5 +77,27 @@ namespace VideoStoreApplication.Models
         {
             Available = true;
         }
+
+        public static bool operator ==(Movie rhs, Movie lhs)
+        {
+            object rhso = rhs;
+            object lhso = lhs;
+
+            if (rhso == null && lhso == null) return true;
+            if (rhso == null && lhso != null) return true;
+            if (rhso != null && lhso == null) return true;
+
+            return rhs.Name             == lhs.Name &&
+                   rhs.Description      == lhs.Description &&
+                   rhs.ReleaseDate      == lhs.ReleaseDate &&
+                   rhs.RentPricePerDay  == lhs.RentPricePerDay &&
+                   rhs.Available        == lhs.Available &&
+                   rhs.RentDate         == lhs.RentDate &&
+                   rhs.Format           == lhs.Format;
+        }
+        public static bool operator !=(Movie rhs, Movie lhs)
+        {
+            return !(rhs == lhs);
+        }
     }
 }
