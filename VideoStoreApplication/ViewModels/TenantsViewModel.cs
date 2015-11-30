@@ -10,6 +10,9 @@ using VideoStoreApplication.Models;
 
 namespace VideoStoreApplication.ViewModels
 {
+    /// <summary>
+    /// View model that contains tenant information.
+    /// </summary>
     public sealed class TenantsViewModel : INotifyPropertyChanged
     {
         #region Fields
@@ -19,6 +22,9 @@ namespace VideoStoreApplication.ViewModels
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Selected tenant.
+        /// </summary>
         public Tenant Selected
         {
             get
@@ -32,6 +38,9 @@ namespace VideoStoreApplication.ViewModels
                 OnPropertyChanged("Selected");
             }
         }
+        /// <summary>
+        /// List of all known tenants.
+        /// </summary>
         public ObservableCollection<Tenant> Tenants
         {
             get
@@ -39,6 +48,9 @@ namespace VideoStoreApplication.ViewModels
                 return tenants;
             }
         }
+        /// <summary>
+        /// Selected movie owned by the selected tenant.
+        /// </summary>
         public Movie SelectedMovie
         {
             get;

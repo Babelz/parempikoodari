@@ -12,7 +12,7 @@ namespace VideoStoreApplication.Models
     public enum MovieFormat
     {
         /// <summary>
-        /// Dvd-format.
+        /// DVD-format.
         /// </summary>
         DVD,
 

@@ -30,6 +30,11 @@ namespace VideoStoreApplication
         #region Event handlers
         private void manageRentsButton_Click(object sender, RoutedEventArgs e)
         {
+            /*
+                    Initialize new movie management window and 
+                    present known movies to the user.
+             */
+
             // RAII.
             DatabaseManager<TenantDatabase> databaseManager = new DatabaseManager<TenantDatabase>(StringConsts.TenantDatabaseLocation);
 

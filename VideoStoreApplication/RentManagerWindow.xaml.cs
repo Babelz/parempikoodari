@@ -128,6 +128,10 @@ namespace VideoStoreApplication
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            /*
+                    Sync data.
+             */
+
             TenantDatabase tenantDatabase = new TenantDatabase();
             tenantDatabase.Tenants = tenantsViewModel.Tenants.ToList();
 

@@ -33,15 +33,7 @@ namespace VideoStoreApplication
         {
             this.movieDatabase = movieDatabase;
 
-            // Initialize model.
-            List<Movie> avaivableMovies = movieDatabase.Movies.Where(m => m.Available).ToList();
-
-            moviesViewModel = new MoviesViewModel();
-
-            foreach (Movie movie in avaivableMovies)
-            {
-                moviesViewModel.Movies.Add(movie);
-            }
+            moviesViewModel = new MoviesViewModel(movieDatabase);
 
             DataContext = moviesViewModel;
 

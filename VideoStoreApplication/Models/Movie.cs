@@ -80,13 +80,10 @@ namespace VideoStoreApplication.Models
 
         public static bool operator ==(Movie rhs, Movie lhs)
         {
-            object rhso = rhs;
-            object lhso = lhs;
-
-            if (rhso == null && lhso == null) return true;
-            if (rhso == null && lhso != null) return true;
-            if (rhso != null && lhso == null) return true;
-
+            if (ReferenceEquals(rhs, null) && ReferenceEquals(lhs, null)) return true;
+            if (ReferenceEquals(rhs, null)) return false;
+            if (ReferenceEquals(lhs, null)) return false;
+            
             return rhs.Name             == lhs.Name &&
                    rhs.Description      == lhs.Description &&
                    rhs.ReleaseDate      == lhs.ReleaseDate &&
